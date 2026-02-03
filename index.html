@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fun Quiz 😏</title>
+
+<style>
+body{
+  margin:0;
+  font-family:"Segoe UI",Arial;
+  background: radial-gradient(circle at top,#ffd1dc,#ff9a9e 60%,#ee9ca7);
+  overflow:hidden;
+}
+
+/* ☁️ REALISTIC CLOUD BACKGROUND */
+/* ☁️ REALISTIC WHITE CLOUDS */
+/* ☁️ SKY CLOUDS (TOP ONLY + NO DELAY) */
+/* ☁️ REALISTIC SKY CLOUD SYSTEM */
+/* ☁️ REALISTIC CONTINUOUS FLOATING CLOUDS */
+.cloud{
+  position:fixed;
+  width:360px;
+  opacity:0.75;
+  filter:brightness(1.6) blur(1px);
+  pointer-events:none;
+
+  /* smooth infinite floating */
+  animation:cloudFloat ease-in-out infinite alternate;
+}
+
+/* Different positions + different speeds (very important) */
+/* ☁️ Shift clouds more toward left side */
+.cloud.c1{ top:2%;  left:-5%;   animation-duration:18s;}
+.cloud.c2{ top:4%;  left:10%;   animation-duration:22s;}
+.cloud.c3{ top:6%;  left:30%;   animation-duration:26s;}
+.cloud.c4{ top:8%;  left:50%;   animation-duration:20s;}
+.cloud.c5{ top:10%; left:0%;    animation-duration:24s;}
+.cloud.c6{ top:12%; left:20%;   animation-duration:28s;}
+.cloud.c7{ top:14%; left:40%;   animation-duration:19s;}
+.cloud.c8{ top:16%; left:60%;   animation-duration:23s;}
+.cloud.c9{ top:18%; left:80%;   animation-duration:27s;}
+
+
+/* ✨ TO-AND-FRO MOTION (never leaves screen) */
+@keyframes cloudFloat{
+  0%   { transform:translateX(0px) translateY(0px); }
+  50%  { transform:translateX(40px) translateY(-10px); }
+  100% { transform:translateX(-40px) translateY(10px); }
+}
+
+
+
+.cloud:nth-child(1){ left:-400px; }
+.cloud:nth-child(2){ top:45%; left:-500px; animation-duration:110s;}
+
+@keyframes cloudMove{
+  from{transform:translateX(0);}
+  to{transform:translateX(160vw);}
+}
+
+/* HEADER */
+.header{
+  width:100%;
+  padding:18px;
+  text-align:center;
+
+  font-family:"Poppins", "Segoe UI", Arial, sans-serif; /* changed font */
+  font-weight:800;   /* more bold */
+
+  color:rgb(40, 13, 99);
+  font-size:42px;
+
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  box-shadow:0 2px 12px rgba(0,0,0,0.1);
+}
+
+
+/* CENTER WRAPPER */
+.wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:85vh;
+}
+
+/* MAIN CARD */
+.box{
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(15px);
+  width:560px;
+  padding:40px;
+  border-radius:22px;
+  box-shadow:0px 20px 60px rgba(0,0,0,0.18);
+  position:relative;
+  animation:fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.box:hover{
+  transform:scale(1.01);
+  transition:0.3s;
+}
+
+/* GLOW BLOBS */
+.box::before,
+.box::after{
+  content:"";
+  position:absolute;
+  width:140px;
+  height:140px;
+  background:linear-gradient(45deg,#ff8fa3,#ffc2d1);
+  border-radius:50%;
+  filter:blur(60px);
+  z-index:-1;
+}
+.box::before{top:-40px;left:-40px;}
+.box::after{bottom:-40px;right:-40px;}
+
+h2{
+  color:#ff4d6d;
+  text-transform:capitalize;
+}
+
+/* PROGRESS BAR */
+.progressBar{
+  width:100%;
+  height:8px;
+  background:#ffd6de;
+  border-radius:20px;
+  margin-bottom:20px;
+  overflow:hidden;
+}
+.progressFill{
+  height:100%;
+  background:linear-gradient(45deg,#ff4d6d,#ff8fab);
+  width:0%;
+  transition:0.4s;
+}
+
+/* BUTTONS */
+button{
+  margin:10px;
+  padding:12px 22px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#ff758c,#ff7eb3);
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+  text-transform:capitalize;
+  box-shadow:0px 6px 15px rgba(0,0,0,0.15);
+  transition:0.25s;
+}
+button:hover{
+  transform:translateY(-3px) scale(1.06);
+  box-shadow:0px 12px 22px rgba(0,0,0,0.25);
+}
+
+/* 🌙 POPUP STYLE */
+.popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.popupContent{
+  background:linear-gradient(135deg,#2c2c54,#474787);
+  color:white;
+  padding:30px;
+  border-radius:18px;
+  width:320px;
+  box-shadow:0px 12px 30px rgba(0,0,0,0.4);
+  animation:popupIn 0.4s ease;
+}
+@keyframes popupIn{
+  from{transform:scale(0.7);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* 💗 BIGGER FLOATING HEARTS */
+.heart{
+  position:fixed;
+  bottom:-40px;
+  font-size:32px;
+  opacity:0.35;
+  animation:float 9s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-120vh);}
+}
+
+/* ✨ SPARKLES */
+.sparkle{
+  position:fixed;
+  bottom:-20px;
+  font-size:18px;
+  opacity:0.6;
+  animation:float 12s linear infinite;
+}
+/* 🌼 FIXED GARDEN GROUND */
+.garden{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:140px;
+  overflow:hidden;          /* prevents bottom gap */
+  display:flex;
+  justify-content:space-around;
+  align-items:flex-end;
+  pointer-events:none;
+}
+
+/* Flower plant images */
+.plant{
+  height:140px;
+  opacity:0.95;
+
+  /* sway from bottom so ground stays fixed */
+  transform-origin:bottom center;
+
+  animation:sway 3s ease-in-out infinite alternate;
+}
+
+/* different wind speeds */
+.plant.p1{animation-duration:3.2s;}
+.plant.p2{animation-duration:4.1s;}
+.plant.p3{animation-duration:3.6s;}
+.plant.p4{animation-duration:4.8s;}
+.plant.p5{animation-duration:3.9s;}
+.plant.p6{animation-duration:4.3s;}
+.plant.p7{animation-duration:3.4s;}
+
+@keyframes sway{
+  0%{ transform:translateX(-6px);}
+  50%{ transform:translateX(6px);}
+  100%{ transform:translateX(-6px);}
+}
+.garden{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:180px;                 /* height of garden */
+
+  background-image:url("flower.png");
+  background-repeat:repeat-x;   /* repeats flowers across screen */
+  background-position:bottom;
+  background-size:auto 250px;   /* makes flowers BIGGER */
+
+  z-index:5;
+  pointer-events:none;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- ☁️ REALISTIC CLOUDS -->
+<img class="cloud c1" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+<img class="cloud c2" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+<img class="cloud c3" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+<img class="cloud c4" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+<img class="cloud c5" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+<img class="cloud c6" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+<img class="cloud c7" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+<img class="cloud c8" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+<img class="cloud c9" src="https://pngimg.com/uploads/cloud/cloud_PNG16.png">
+
+
+
+<div class="header">US QUIZ</div>
+
+<div class="wrapper">
+<div class="box">
+
+<div class="progressBar">
+<div class="progressFill" id="progressFill"></div>
+</div>
+
+<h2 id="question"></h2>
+<div id="options"></div>
+
+</div>
+</div>
+
+<div class="popup" id="popup">
+  <div class="popupContent">
+    <p id="popupText"></p>
+    <button onclick="closePopup()">Okay 😌</button>
+  </div>
+</div>
+<!-- 🌸 FLOWER GARDEN -->
+<!-- 🌸 FLOWER GARDEN -->
+<div class="garden"></div>
+
+
+
+<script>
+const quiz = [
+{q:"chalo start karein….to ready ? ",options:[{text:"yes",popup:"Good! 😌"},{text:"thodi der me krta hu",popup:"Nahi abhi karo"}]},
+{q:"who’s more kaala — you or me?",options:[{text:"mai",popup:"Awww...KoiNa"},{text:"tum",popup:"kaale honge tumhare padosi"}]},
+{q:"zyada fit kaun hai — you or me? 🏃",options:[{text:"hmesha se tum jaan",popup:"Huh!! pata hai 😎"},{text:"mai hu par tumse zyada nhi",popup:"Honest banda "}]},
+{q:"who’s more hot — me or tumhari pados wali didi? ",runaway:true,options:[{text:"obv tum",popup:"Correct answer detected 😌"},{text:"pados vli didi",popup:"koi na h to didi hi"}]},
+{q:"hamesha galti kiski hoti hai — yours or mine? 😂",options:[{text:"tumhari kbhi nhi hoti",popup:"Smart answer 😏"},{text:"meri",popup:"Koi na galtiyon se hi seekhte hain"}]},
+{q:"was i a good influence ya thodi si bad influence?",options:[{text:"isnt it obv",popup:"Obviously good 😌"},{text:"my fav influence fir chahe jaisi bhi ho",popup:"Hayeeee!! Best answer 💫"}]},
+{q:"who misses the other more but admit nahi karta? 😏",options:[{text:"mai",popup:"Aww miss you toooooo 😄"},{text:"tum",popup:"Mai to hmesha hi krti hu"}]},
+{q:"tumhe mujhme sabse zyada kya pasand hai?",options:[{text:"sab",popup:"Expected answer 😌"},{text:"tum poori ki poori",popup:"Mai cheez badi hu mast mast 😏"}]},
+{q:"honest bolo… kabhi mujhe dekhke thoda sa blush hua hai?",options:[{text:"ha hua h hehe",popup:"Firse...mai cheez badi hu mast mast! 😌"},{text:"pura ka pura chehra laal hua h tum blush ki baat kar rhi",popup:"Hehe 😄"}]},
+{q:"wanna go on a random date soon?",options:[{text:"are bilkul",popup:"Date confirmed 😏"},{text:"always ready",popup:"Sweetuuu 😄"}]},
+{q:"to date par kab chal rahe? 😏",options:[{text:"abhi",popup:"Let’s gooo 🚗"},{text:"jab aap chahe",popup:"Perfect answer 😌"}]}
+];
+
+let index=0;
+let answered=false;
+
+function loadQuestion(){
+answered=false;
+document.getElementById("progressFill").style.width=(index/quiz.length)*100+"%";
+
+const q=document.getElementById("question");
+const opt=document.getElementById("options");
+opt.innerHTML="";
+
+if(index>=quiz.length){
+q.innerText="Quiz khatam 😌";
+return;
+}
+
+q.innerText=quiz[index].q;
+
+quiz[index].options.forEach((o,i)=>{
+const btn=document.createElement("button");
+btn.innerText=o.text;
+
+if(quiz[index].runaway && i===1){
+btn.style.position="absolute";
+document.addEventListener("mousemove",function(e){
+const rect=btn.getBoundingClientRect();
+const dx=Math.abs(e.clientX-rect.left);
+const dy=Math.abs(e.clientY-rect.top);
+
+if(dx<120 && dy<120){
+btn.style.left=Math.random()*window.innerWidth*0.6+"px";
+btn.style.top=Math.random()*window.innerHeight*0.6+"px";
+}
+});
+}
+
+btn.onclick=function(){
+answered=true;
+showPopup(o.popup);
+showNextButton();
+}
+
+opt.appendChild(btn);
+});
+}
+
+function showNextButton(){
+const opt=document.getElementById("options");
+if(document.getElementById("nextBtn")) return;
+
+const nextBtn=document.createElement("button");
+nextBtn.id="nextBtn";
+nextBtn.innerText="Next ➝";
+nextBtn.style.background="linear-gradient(45deg,#6a11cb,#2575fc)";
+nextBtn.onclick=function(){
+if(!answered) return;
+index++;
+loadQuestion();
+}
+
+opt.appendChild(document.createElement("br"));
+opt.appendChild(nextBtn);
+}
+
+function showPopup(text){
+document.getElementById("popupText").innerText=text;
+document.getElementById("popup").style.display="flex";
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+
+/* 💗 FLOATING HEARTS */
+setInterval(()=>{
+const h=document.createElement("div");
+h.className="heart";
+h.innerText="💗";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),9000);
+},1200);
+
+/* ✨ SPARKLES */
+setInterval(()=>{
+const s=document.createElement("div");
+s.className="sparkle";
+s.innerText="✨";
+s.style.left=Math.random()*100+"vw";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),10000);
+},900);
+
+loadQuestion();
+</script>
+
+</body>
+</html>
+
